@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sphere Searcher</title>
+    <script type="module" crossorigin src="./assets/index-eBGhJrAr.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DFQkEXFk.css">
+  </head>
+  <body>
+    <div id="setup-screen">
+      <main>
+        <section id="setup-builder">
+          <h1>Sphere Searcher</h1>
+          <p class="intro">
+            Turn your own practice questions into a maze you explore in first
+            person. Find the glowing spheres, answer their questions, and open
+            the doors to escape.
+          </p>
+
+          <div class="list-header">
+            <h2>Your questions (<span id="question-count"></span>)</h2>
+            <button id="export-csv" type="button" disabled>
+              Export to CSV
+            </button>
+          </div>
+          <p id="question-empty">
+            No questions yet. Add one below or import a CSV file.
+          </p>
+          <button id="use-samples" type="button" class="link-button">
+            Add 3 sample questions to try it
+          </button>
+          <ol id="question-list"></ol>
+
+          <form id="question-form">
+            <h2>Add a question</h2>
+            <label>
+              Type
+              <select id="form-kind">
+                <option value="multiple-choice">Multiple choice</option>
+                <option value="true-false">True / false</option>
+                <option value="free-response">Free response</option>
+              </select>
+            </label>
+            <label>
+              Question
+              <textarea id="form-prompt" rows="2"></textarea>
+            </label>
+
+            <fieldset id="form-multiple-choice">
+              <legend>Answers (select the correct one)</legend>
+              <div id="mc-choices"></div>
+              <button id="add-choice" type="button">Add another answer</button>
+              <p class="hint">
+                Leave an answer blank to ignore it. The game shuffles the order.
+              </p>
+            </fieldset>
+
+            <fieldset id="form-true-false" hidden>
+              <legend>Correct answer</legend>
+              <label>
+                <input type="radio" name="form-truth" value="true" /> True
+              </label>
+              <label>
+                <input type="radio" name="form-truth" value="false" /> False
+              </label>
+            </fieldset>
+
+            <div id="form-free-response" hidden>
+              <label>
+                Accepted answers (one per line)
+                <textarea id="form-accepted" rows="3"></textarea>
+              </label>
+              <p class="hint">
+                Any one of these counts as correct. Upper/lower case and extra
+                spaces are ignored.
+              </p>
+            </div>
+
+            <p id="form-message" role="status"></p>
+            <button type="submit">Add question</button>
+          </form>
+
+          <section id="csv-import">
+            <h2>Import from a CSV or TXT file</h2>
+            <p>
+              A CSV file is a spreadsheet saved as plain text. In Excel or
+              Google Sheets, use File &rarr; Save as / Download &rarr; CSV. A
+              plain .txt file works too, as long as it is written in the same
+              format (see below).
+            </p>
+            <details>
+              <summary>How to format the CSV file</summary>
+              <p>
+                Use one row per question. Column A is the type, column B is the
+                question, and the columns after that are the answers.
+              </p>
+              <ul>
+                <li>
+                  <code>mc</code> (multiple choice): put the
+                  <strong>correct answer first</strong>, then the wrong answers,
+                  at least one. The game shuffles them.
+                </li>
+                <li>
+                  <code>tf</code> (true / false): one answer, either
+                  <code>true</code> or <code>false</code>.
+                </li>
+                <li>
+                  <code>fr</code> (free response): list every answer you want to
+                  accept, one per column. Case and extra spaces are ignored.
+                </li>
+              </ul>
+              <p>
+                A first row starting with <code>type</code> is treated as a
+                header and skipped. A row with a problem is skipped and listed
+                after you import, so the good rows still load. Example:
+              </p>
+              <pre id="csv-example"></pre>
+              <button id="download-example" type="button">
+                Download this example
+              </button>
+            </details>
+            <label class="file-button">
+              Choose a CSV or TXT file
+              <input
+                id="csv-file"
+                type="file"
+                accept=".csv,.txt,text/csv,text/plain"
+              />
+            </label>
+            <div id="csv-status" role="status"></div>
+          </section>
+
+          <label class="rest-option">
+            <input id="rest-enabled" type="checkbox" />
+            Rest questions I know well
+          </label>
+          <p class="hint">
+            Questions you answer right take a break for a few rounds, then come
+            back. Missing one brings it back right away.
+          </p>
+
+          <label class="maze-size">
+            Maze size (cells per side)
+            <input id="maze-size" type="number" step="1" />
+          </label>
+          <p id="maze-size-hint" class="hint"></p>
+
+          <button id="start-game" type="button" disabled>Start game</button>
+        </section>
+      </main>
+    </div>
+    <div id="start-overlay" hidden>
+      <h1>Sphere Searcher</h1>
+      <p class="status">Click to play</p>
+      <p class="controls">WASD to move · Mouse to turn · Esc to pause</p>
+    </div>
+    <div id="hud" hidden>
+      <p id="hud-score">Score: 0</p>
+      <p id="hud-streak">Streak: 0</p>
+      <p id="hud-questions">Questions: 0/0</p>
+      <p id="hud-doors">Doors open: 0/3</p>
+    </div>
+    <div id="minimap" hidden>
+      <canvas id="minimap-canvas"></canvas>
+      <p id="minimap-label">M: show question spheres (off)</p>
+    </div>
+    <div id="door-message" hidden></div>
+    <div id="win-screen" hidden>
+      <h1>You escaped!</h1>
+      <p id="win-score"></p>
+      <button id="play-again" type="button">Play again</button>
+    </div>
+    <div id="question-popup" hidden></div>
+    <div id="resume-hint" hidden>Click to resume</div>
+  </body>
+</html>

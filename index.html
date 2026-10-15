@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sphere Searcher</title>
-    <script type="module" crossorigin src="./assets/index-BmxGSbOD.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DyB6NCJR.css">
+    <script type="module" crossorigin src="./assets/index-D8rb558y.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CO5elHff.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -209,20 +209,20 @@
     <div id="start-overlay" hidden>
       <h1>Sphere Searcher</h1>
       <p class="status">Click to play</p>
-      <ul class="controls">
-        <li><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Move</li>
-        <li>Mouse or <kbd>←</kbd><kbd>→</kbd> Turn</li>
-        <li><kbd>E</kbd> Open the question on a nearby sphere</li>
-        <li><kbd>M</kbd> Show or hide spheres on the minimap</li>
-        <li><kbd>Esc</kbd> Pause</li>
-      </ul>
+      <!-- The list of controls is filled in by settingsPanel.ts. -->
+      <ul class="controls"></ul>
     </div>
+    <aside id="settings-panel" hidden></aside>
+    <button id="settings-tab" type="button" aria-controls="settings-panel">
+      Settings
+    </button>
     <div id="interact-prompt" hidden><kbd>E</kbd> Answer question</div>
     <div id="hud" hidden>
       <p id="hud-score">Score: 0</p>
       <p id="hud-streak">Streak: 0</p>
       <p id="hud-questions">Questions: 0/0</p>
       <p id="hud-doors">Doors open: 0/3</p>
+      <p id="hud-next-door"></p>
     </div>
     <div id="minimap" hidden>
       <canvas id="minimap-canvas"></canvas>

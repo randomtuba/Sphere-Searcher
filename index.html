@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sphere Searcher</title>
-    <script type="module" crossorigin src="./assets/index-Brv9Q-wb.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Bgqjzn8h.css">
+    <script type="module" crossorigin src="./assets/index-BmxGSbOD.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DyB6NCJR.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -33,19 +33,46 @@
           <ol id="question-list"></ol>
 
           <form id="question-form">
-            <h2>Add a question</h2>
+            <h2 id="form-heading">Add a question</h2>
             <label>
               Type
               <select id="form-kind">
                 <option value="multiple-choice">Multiple choice</option>
                 <option value="true-false">True / false</option>
                 <option value="free-response">Free response</option>
+                <option value="matching">Matching</option>
               </select>
             </label>
             <label>
               Question
               <textarea id="form-prompt" rows="2"></textarea>
             </label>
+            <p class="hint format-hint">
+              You can format text: <code>**bold**</code>, <code>*italic*</code>,
+              <code>__underline__</code>, <code>E = mc^2^</code> (superscript),
+              <code>H~2~O</code>
+              (subscript). This works in the question, multiple choice answers,
+              and matching terms and definitions.
+            </p>
+            <details class="format-help">
+              <summary>More about text formatting</summary>
+              <ul>
+                <li>
+                  <code>_italic_</code> works the same as <code>*italic*</code>
+                </li>
+                <li>
+                  Marks can be combined: <code>**bold _and italic_**</code>
+                </li>
+                <li>
+                  Superscript and subscript cannot contain spaces, so
+                  <code>x^2 + y^2</code> stays as typed
+                </li>
+                <li>
+                  Put a backslash before <code>*</code> <code>_</code>
+                  <code>^</code> or <code>~</code> to show it as plain text.
+                </li>
+              </ul>
+            </details>
 
             <fieldset id="form-multiple-choice">
               <legend>Answers (select the correct one)</legend>
@@ -77,8 +104,27 @@
               </p>
             </div>
 
+            <fieldset id="form-matching" hidden>
+              <legend>
+                Pairs (each term goes with the definition beside it)
+              </legend>
+              <div class="pair-row pair-header">
+                <span>Term</span>
+                <span>Definition</span>
+              </div>
+              <div id="pair-rows"></div>
+              <button id="add-pair" type="button">Add another pair</button>
+              <p class="hint">
+                2 to 6 pairs. The game shuffles the definitions, and the player
+                drags each one onto its term.
+              </p>
+            </fieldset>
+
             <p id="form-message" role="status"></p>
-            <button type="submit">Add question</button>
+            <div class="form-buttons">
+              <button id="form-submit" type="submit">Add question</button>
+              <button id="cancel-edit" type="button" hidden>Cancel</button>
+            </div>
           </form>
 
           <section id="csv-import">
@@ -109,7 +155,16 @@
                   <code>fr</code> (free response): list every answer you want to
                   accept, one per column. Case and extra spaces are ignored.
                 </li>
+                <li>
+                  <code>match</code> (matching): write each pair as
+                  <code>term=definition</code>, one per column, 2 to 6 pairs. To
+                  put an <code>=</code> sign inside a term or definition, write
+                  <code>\=</code> instead.
+                </li>
               </ul>
+              <p>
+                The text formatting from the question form works in the CSV too.
+              </p>
               <p>
                 A first row starting with <code>type</code> is treated as a
                 header and skipped. A row with a problem is skipped and listed
@@ -154,8 +209,15 @@
     <div id="start-overlay" hidden>
       <h1>Sphere Searcher</h1>
       <p class="status">Click to play</p>
-      <p class="controls">WASD to move · Mouse to turn · Esc to pause</p>
+      <ul class="controls">
+        <li><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Move</li>
+        <li>Mouse or <kbd>←</kbd><kbd>→</kbd> Turn</li>
+        <li><kbd>E</kbd> Open the question on a nearby sphere</li>
+        <li><kbd>M</kbd> Show or hide spheres on the minimap</li>
+        <li><kbd>Esc</kbd> Pause</li>
+      </ul>
     </div>
+    <div id="interact-prompt" hidden><kbd>E</kbd> Answer question</div>
     <div id="hud" hidden>
       <p id="hud-score">Score: 0</p>
       <p id="hud-streak">Streak: 0</p>

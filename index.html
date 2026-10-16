@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sphere Searcher</title>
-    <script type="module" crossorigin src="./assets/index-D8rb558y.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CO5elHff.css">
+    <script type="module" crossorigin src="./assets/index-D3jC5GEt.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BKqhbkDZ.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -47,6 +47,18 @@
               Question
               <textarea id="form-prompt" rows="2"></textarea>
             </label>
+            <label>
+              Image link (optional)
+              <input
+                id="form-image"
+                type="url"
+                placeholder="https://example.com/picture.png"
+              />
+            </label>
+            <p class="hint">
+              The picture shows above the question in the maze. The link must
+              start with <code>https://</code> and point straight at an image.
+            </p>
             <p class="hint format-hint">
               You can format text: <code>**bold**</code>, <code>*italic*</code>,
               <code>__underline__</code>, <code>E = mc^2^</code> (superscript),
@@ -166,6 +178,12 @@
                 The text formatting from the question form works in the CSV too.
               </p>
               <p>
+                To give a question a picture, put one extra cell right after the
+                question text, written
+                <code>image:https://example.com/picture.png</code>. The other
+                cells stay as they are, and rows without a picture need nothing.
+              </p>
+              <p>
                 A first row starting with <code>type</code> is treated as a
                 header and skipped. A row with a problem is skipped and listed
                 after you import, so the good rows still load. Example:
@@ -186,20 +204,7 @@
             <div id="csv-status" role="status"></div>
           </section>
 
-          <label class="rest-option">
-            <input id="rest-enabled" type="checkbox" />
-            Rest questions I know well
-          </label>
-          <p class="hint">
-            Questions you answer right take a break for a few rounds, then come
-            back. Missing one brings it back right away.
-          </p>
-
-          <label class="maze-size">
-            Maze size (cells per side)
-            <input id="maze-size" type="number" step="1" />
-          </label>
-          <p id="maze-size-hint" class="hint"></p>
+          <p id="start-message" class="error" role="alert" hidden></p>
 
           <button id="start-game" type="button" disabled>Start game</button>
         </section>

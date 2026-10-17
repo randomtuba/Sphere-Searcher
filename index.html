@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sphere Searcher</title>
-    <script type="module" crossorigin src="./assets/index-D3jC5GEt.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BKqhbkDZ.css">
+    <script type="module" crossorigin src="./assets/index-D1FkXZE8.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-1K-EV8SW.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -28,9 +28,17 @@
             No questions yet. Add one below or import a CSV file.
           </p>
           <button id="use-samples" type="button" class="link-button">
-            Add 3 sample questions to try it
+            Add 4 sample questions to try it
           </button>
           <ol id="question-list"></ol>
+          <button
+            id="erase-memory"
+            type="button"
+            class="danger-button"
+            disabled
+          >
+            Erase memory for this list
+          </button>
 
           <form id="question-form">
             <h2 id="form-heading">Add a question</h2>
@@ -45,54 +53,72 @@
             </label>
             <label>
               Question
+              <span class="help"
+                ><button
+                  type="button"
+                  class="help-button"
+                  aria-label="Help: text formatting"
+                  aria-describedby="help-format"
+                >
+                  ?</button
+                ><span id="help-format" class="help-text" role="tooltip"
+                  >You can format text: <code>**bold**</code>,
+                  <code>*italic*</code> (or <code>_italic_</code>),
+                  <code>__underline__</code>,
+                  <code>E = mc^2^</code> (superscript),
+                  <code>H~2~O</code> (subscript). This works in the question,
+                  multiple choice answers, and matching terms and definitions.
+                  Marks can be combined: <code>**bold _and italic_**</code>.
+                  Superscript and subscript cannot contain spaces, so
+                  <code>x^2 + y^2</code> stays as typed. Put a backslash before
+                  <code>*</code> <code>_</code> <code>^</code> or
+                  <code>~</code> to show it as plain text.</span
+                ></span
+              >
               <textarea id="form-prompt" rows="2"></textarea>
             </label>
             <label>
               Image link (optional)
+              <span class="help"
+                ><button
+                  type="button"
+                  class="help-button"
+                  aria-label="Help: image link"
+                  aria-describedby="help-image"
+                >
+                  ?</button
+                ><span id="help-image" class="help-text" role="tooltip"
+                  >The picture shows above the question in the maze. The link
+                  must start with <code>https://</code> and point straight at an
+                  image.</span
+                ></span
+              >
               <input
                 id="form-image"
                 type="url"
                 placeholder="https://example.com/picture.png"
               />
             </label>
-            <p class="hint">
-              The picture shows above the question in the maze. The link must
-              start with <code>https://</code> and point straight at an image.
-            </p>
-            <p class="hint format-hint">
-              You can format text: <code>**bold**</code>, <code>*italic*</code>,
-              <code>__underline__</code>, <code>E = mc^2^</code> (superscript),
-              <code>H~2~O</code>
-              (subscript). This works in the question, multiple choice answers,
-              and matching terms and definitions.
-            </p>
-            <details class="format-help">
-              <summary>More about text formatting</summary>
-              <ul>
-                <li>
-                  <code>_italic_</code> works the same as <code>*italic*</code>
-                </li>
-                <li>
-                  Marks can be combined: <code>**bold _and italic_**</code>
-                </li>
-                <li>
-                  Superscript and subscript cannot contain spaces, so
-                  <code>x^2 + y^2</code> stays as typed
-                </li>
-                <li>
-                  Put a backslash before <code>*</code> <code>_</code>
-                  <code>^</code> or <code>~</code> to show it as plain text.
-                </li>
-              </ul>
-            </details>
 
             <fieldset id="form-multiple-choice">
-              <legend>Answers (select the correct one)</legend>
+              <legend>
+                Answers (select the correct one)
+                <span class="help"
+                  ><button
+                    type="button"
+                    class="help-button"
+                    aria-label="Help: multiple choice answers"
+                    aria-describedby="help-choices"
+                  >
+                    ?</button
+                  ><span id="help-choices" class="help-text" role="tooltip"
+                    >Leave an answer blank to ignore it. The game shuffles the
+                    order.</span
+                  ></span
+                >
+              </legend>
               <div id="mc-choices"></div>
               <button id="add-choice" type="button">Add another answer</button>
-              <p class="hint">
-                Leave an answer blank to ignore it. The game shuffles the order.
-              </p>
             </fieldset>
 
             <fieldset id="form-true-false" hidden>
@@ -108,17 +134,39 @@
             <div id="form-free-response" hidden>
               <label>
                 Accepted answers (one per line)
+                <span class="help"
+                  ><button
+                    type="button"
+                    class="help-button"
+                    aria-label="Help: accepted answers"
+                    aria-describedby="help-accepted"
+                  >
+                    ?</button
+                  ><span id="help-accepted" class="help-text" role="tooltip"
+                    >Any one of these counts as correct. Upper/lower case and
+                    extra spaces are ignored.</span
+                  ></span
+                >
                 <textarea id="form-accepted" rows="3"></textarea>
               </label>
-              <p class="hint">
-                Any one of these counts as correct. Upper/lower case and extra
-                spaces are ignored.
-              </p>
             </div>
 
             <fieldset id="form-matching" hidden>
               <legend>
                 Pairs (each term goes with the definition beside it)
+                <span class="help"
+                  ><button
+                    type="button"
+                    class="help-button"
+                    aria-label="Help: matching pairs"
+                    aria-describedby="help-pairs"
+                  >
+                    ?</button
+                  ><span id="help-pairs" class="help-text" role="tooltip"
+                    >2 to 6 pairs. The game shuffles the definitions, and the
+                    player drags each one onto its term.</span
+                  ></span
+                >
               </legend>
               <div class="pair-row pair-header">
                 <span>Term</span>
@@ -126,10 +174,6 @@
               </div>
               <div id="pair-rows"></div>
               <button id="add-pair" type="button">Add another pair</button>
-              <p class="hint">
-                2 to 6 pairs. The game shuffles the definitions, and the player
-                drags each one onto its term.
-              </p>
             </fieldset>
 
             <p id="form-message" role="status"></p>

@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sphere Searcher</title>
-    <script type="module" crossorigin src="./assets/index-D1FkXZE8.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-1K-EV8SW.css">
+    <script type="module" crossorigin src="./assets/index-y4kx1jMW.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-rG2UD1WP.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -13,9 +13,8 @@
         <section id="setup-builder">
           <h1>Sphere Searcher</h1>
           <p class="intro">
-            Turn your own practice questions into a maze you explore in first
-            person. Find the glowing spheres, answer their questions, and open
-            the doors to escape.
+            Turn your own practice questions into a maze: find the spheres,
+            answer them, escape.
           </p>
 
           <div class="list-header">
@@ -24,9 +23,7 @@
               Export to CSV
             </button>
           </div>
-          <p id="question-empty">
-            No questions yet. Add one below or import a CSV file.
-          </p>
+          <p id="question-empty">No questions yet. Add one below.</p>
           <button id="use-samples" type="button" class="link-button">
             Add 4 sample questions to try it
           </button>
@@ -77,28 +74,31 @@
               >
               <textarea id="form-prompt" rows="2"></textarea>
             </label>
-            <label>
-              Image link (optional)
-              <span class="help"
-                ><button
-                  type="button"
-                  class="help-button"
-                  aria-label="Help: image link"
-                  aria-describedby="help-image"
+            <details id="image-options" class="options">
+              <summary>Add a picture (optional)</summary>
+              <label>
+                Image link
+                <span class="help"
+                  ><button
+                    type="button"
+                    class="help-button"
+                    aria-label="Help: image link"
+                    aria-describedby="help-image"
+                  >
+                    ?</button
+                  ><span id="help-image" class="help-text" role="tooltip"
+                    >The picture shows above the question in the maze. The link
+                    must start with <code>https://</code> and point straight at
+                    an image.</span
+                  ></span
                 >
-                  ?</button
-                ><span id="help-image" class="help-text" role="tooltip"
-                  >The picture shows above the question in the maze. The link
-                  must start with <code>https://</code> and point straight at an
-                  image.</span
-                ></span
-              >
-              <input
-                id="form-image"
-                type="url"
-                placeholder="https://example.com/picture.png"
-              />
-            </label>
+                <input
+                  id="form-image"
+                  type="url"
+                  placeholder="https://example.com/picture.png"
+                />
+              </label>
+            </details>
 
             <fieldset id="form-multiple-choice">
               <legend>
@@ -183,8 +183,8 @@
             </div>
           </form>
 
-          <section id="csv-import">
-            <h2>Import from a CSV or TXT file</h2>
+          <details id="csv-import" class="options">
+            <summary>Import from a CSV or TXT file</summary>
             <p>
               A CSV file is a spreadsheet saved as plain text. In Excel or
               Google Sheets, use File &rarr; Save as / Download &rarr; CSV. A
@@ -246,7 +246,7 @@
               />
             </label>
             <div id="csv-status" role="status"></div>
-          </section>
+          </details>
 
           <p id="start-message" class="error" role="alert" hidden></p>
 

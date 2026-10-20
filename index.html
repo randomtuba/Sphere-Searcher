@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sphere Searcher</title>
-    <script type="module" crossorigin src="./assets/index-y4kx1jMW.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-rG2UD1WP.css">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <script type="module" crossorigin src="./assets/index-BRyNkDEW.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-aAh8Mt6N.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -16,6 +17,11 @@
             Turn your own practice questions into a maze: find the spheres,
             answer them, escape.
           </p>
+          <div id="tutorial-top">
+            <button id="play-tutorial" type="button" class="tutorial-button">
+              Play tutorial
+            </button>
+          </div>
 
           <div class="list-header">
             <h2>Your questions (<span id="question-count"></span>)</h2>
@@ -24,9 +30,6 @@
             </button>
           </div>
           <p id="question-empty">No questions yet. Add one below.</p>
-          <button id="use-samples" type="button" class="link-button">
-            Add 4 sample questions to try it
-          </button>
           <ol id="question-list"></ol>
           <button
             id="erase-memory"
@@ -251,6 +254,7 @@
           <p id="start-message" class="error" role="alert" hidden></p>
 
           <button id="start-game" type="button" disabled>Start game</button>
+          <div id="tutorial-bottom"></div>
         </section>
         <p class="credit">Made with Claude</p>
       </main>
@@ -278,9 +282,14 @@
       <p id="minimap-label">M: show question spheres (off)</p>
     </div>
     <div id="door-message" hidden></div>
+    <div id="tutorial-message" hidden></div>
     <div id="win-screen" hidden>
       <h1>You escaped!</h1>
       <p id="win-score"></p>
+      <div id="win-missed" hidden>
+        <h2>Questions you missed this round</h2>
+        <ul id="win-missed-list"></ul>
+      </div>
       <button id="play-again" type="button">Play again</button>
     </div>
     <div id="question-popup" hidden></div>

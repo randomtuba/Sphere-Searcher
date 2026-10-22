@@ -1,0 +1,21 @@
+Sound effects used in Sphere Searcher
+
+All of these are by Kenney (www.kenney.nl) and released under CC0 (public
+domain): https://creativecommons.org/publicdomain/zero/1.0/
+Crediting Kenney is optional; it is done here as a courtesy.
+
+File             Original file          Pack
+button.ogg       click_002.ogg          Interface Sounds
+tick.ogg         tick_001.ogg           Interface Sounds
+correct.ogg      confirmation_001.ogg   Interface Sounds
+wrong.ogg        error_004.ogg          Interface Sounds
+load-success.ogg confirmation_003.ogg   Interface Sounds
+load-error.ogg   error_008.ogg          Interface Sounds
+door.ogg         doorOpen_1.ogg         RPG Audio ("50 RPG sound effects")
+rush.mp3         powerUp7.mp3           Digital Audio ("63 digital sound effects")
+win.mp3          threeTone1.mp3         Digital Audio ("63 digital sound effects")
+
+Sources:
+https://opengameart.org/content/interface-sounds
+https://opengameart.org/content/50-rpg-sound-effects
+https://opengameart.org/content/63-digital-sound-effects-lasers-phasers-space-etc

@@ -2,11 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content"
+    />
     <title>Sphere Searcher</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <script type="module" crossorigin src="./assets/index-FXO-VcAC.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DcUNECyH.css">
+    <script type="module" crossorigin src="./assets/index-E5dI0ZQB.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B2XHejk7.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -25,20 +28,25 @@
 
           <div class="list-header">
             <h2>Your questions (<span id="question-count"></span>)</h2>
-            <button id="export-csv" type="button" disabled>
-              Export to CSV
-            </button>
+            <div class="list-header-buttons">
+              <button id="share-link" type="button" disabled>
+                Copy as link
+              </button>
+              <button id="export-csv" type="button" disabled>
+                Export to CSV
+              </button>
+            </div>
           </div>
           <p id="question-empty">No questions yet. Add one below.</p>
           <ol id="question-list"></ol>
-          <button
-            id="erase-memory"
-            type="button"
-            class="danger-button"
-            disabled
-          >
-            Erase memory for this list
-          </button>
+          <div id="list-actions" class="list-actions" hidden>
+            <button id="remove-all" type="button" class="danger-button">
+              Remove all questions
+            </button>
+            <button id="erase-memory" type="button" class="danger-button">
+              Erase memory for this list
+            </button>
+          </div>
 
           <form id="question-form">
             <h2 id="form-heading">Add a question</h2>
@@ -256,7 +264,11 @@
           <button id="start-game" type="button" disabled>Start game</button>
           <div id="tutorial-bottom"></div>
         </section>
-        <p class="credit">Made with Claude</p>
+        <p class="credit">
+          Made with Claude. Sound effects by
+          <a href="https://kenney.nl" target="_blank" rel="noopener">Kenney</a>
+          (CC0).
+        </p>
       </main>
     </div>
     <div id="start-overlay" hidden>
@@ -264,7 +276,17 @@
       <p class="status">Click to play</p>
       <!-- The list of controls is filled in by settingsPanel.ts. -->
       <ul class="controls"></ul>
+      <ul class="touch-help">
+        <li>Left thumb: slide to walk</li>
+        <li>Right side: drag to look</li>
+        <li>
+          <strong>Answer</strong> and <strong>Map</strong> buttons: bottom right
+        </li>
+        <li><strong>Pause</strong>: top left</li>
+      </ul>
     </div>
+    <div id="touch-controls" hidden></div>
+    <div id="rotate-notice">Turn your phone sideways to play</div>
     <aside id="settings-panel" hidden></aside>
     <button id="settings-tab" type="button" aria-controls="settings-panel">
       Settings

@@ -8,8 +8,8 @@
     />
     <title>Sphere Searcher</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <script type="module" crossorigin src="./assets/index-DmiQioJc.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-D7nvfyUh.css">
+    <script type="module" crossorigin src="./assets/index-DpovvoUJ.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Dls_ez2X.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -115,6 +115,28 @@
               </label>
             </details>
 
+            <details id="why-options" class="options">
+              <summary>Add an explanation (optional)</summary>
+              <label>
+                Why is this the answer?
+                <span class="help"
+                  ><button
+                    type="button"
+                    class="help-button"
+                    aria-label="Help: explanation"
+                    aria-describedby="help-why"
+                  >
+                    ?</button
+                  ><span id="help-why" class="help-text" role="tooltip"
+                    >Shown under "Correct!" or "Not quite." after the player
+                    answers, so a wrong answer teaches something. Text
+                    formatting works here too.</span
+                  ></span
+                >
+                <textarea id="form-why" rows="2"></textarea>
+              </label>
+            </details>
+
             <fieldset id="form-multiple-choice">
               <legend>
                 Answers (select the correct one, or all that apply)
@@ -152,7 +174,28 @@
             </fieldset>
 
             <div id="form-free-response" hidden>
-              <label>
+              <label id="blanks-option">
+                <input type="checkbox" id="form-blanks" />
+                Fill in the blanks
+                <span class="help"
+                  ><button
+                    type="button"
+                    class="help-button"
+                    aria-label="Help: fill in the blanks"
+                    aria-describedby="help-blanks"
+                  >
+                    ?</button
+                  ><span id="help-blanks" class="help-text" role="tooltip"
+                    >Write the sentence in the Question box above and put each
+                    missing word in double square brackets, like
+                    <code>The [[mitochondria]] makes energy.</code>. For other
+                    accepted answers, separate them with <code>|</code>, like
+                    <code>[[color|colour]]</code>. Up to 6 blanks. The player
+                    types into a box in place of each one.</span
+                  ></span
+                >
+              </label>
+              <label id="accepted-option">
                 Accepted answers (one per line)
                 <span class="help"
                   ><button
@@ -292,9 +335,9 @@
               </label>
             </div>
 
-            <div id="form-grouping" hidden>
-              <p class="pair-header">
-                Groups and their items (one item per line)
+            <fieldset id="form-grouping" hidden>
+              <legend>
+                Groups (each item belongs in the group beside it)
                 <span class="help"
                   ><button
                     type="button"
@@ -310,22 +353,26 @@
                     blank to use just two.</span
                   ></span
                 >
-              </p>
+              </legend>
+              <div class="group-row pair-header">
+                <span>Group name</span>
+                <span>Items (one per line)</span>
+              </div>
               <div id="group-rows">
                 <div class="group-row">
-                  <input type="text" placeholder="Group 1 name" />
-                  <textarea rows="3" placeholder="Items"></textarea>
+                  <input type="text" placeholder="Group 1" />
+                  <textarea rows="3"></textarea>
                 </div>
                 <div class="group-row">
-                  <input type="text" placeholder="Group 2 name" />
-                  <textarea rows="3" placeholder="Items"></textarea>
+                  <input type="text" placeholder="Group 2" />
+                  <textarea rows="3"></textarea>
                 </div>
                 <div class="group-row">
-                  <input type="text" placeholder="Group 3 name (optional)" />
-                  <textarea rows="3" placeholder="Items"></textarea>
+                  <input type="text" placeholder="Group 3 (optional)" />
+                  <textarea rows="3"></textarea>
                 </div>
               </div>
-            </div>
+            </fieldset>
 
             <p id="form-message" role="status"></p>
             <div class="form-buttons">
@@ -405,6 +452,12 @@
                 question text, written
                 <code>image:https://example.com/picture.png</code>. The other
                 cells stay as they are, and rows without a picture need nothing.
+              </p>
+              <p>
+                To add an explanation shown after the player answers, put a cell
+                written <code>why:Because the cell makes energy.</code> in the
+                same place (before the answers, before or after the picture
+                cell).
               </p>
               <p>
                 A first row starting with <code>type</code> is treated as a

@@ -8,8 +8,8 @@
     />
     <title>Sphere Searcher</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <script type="module" crossorigin src="./assets/index-B0r-KQNW.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-0aW-wUZc.css">
+    <script type="module" crossorigin src="./assets/index-DmiQioJc.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D7nvfyUh.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -59,6 +59,7 @@
                 <option value="slider">Slider</option>
                 <option value="matching">Matching</option>
                 <option value="ordering">Ordering</option>
+                <option value="grouping">Groups</option>
               </select>
             </label>
             <label>
@@ -291,6 +292,41 @@
               </label>
             </div>
 
+            <div id="form-grouping" hidden>
+              <p class="pair-header">
+                Groups and their items (one item per line)
+                <span class="help"
+                  ><button
+                    type="button"
+                    class="help-button"
+                    aria-label="Help: groups"
+                    aria-describedby="help-groups"
+                  >
+                    ?</button
+                  ><span id="help-groups" class="help-text" role="tooltip"
+                    >2 or 3 groups, up to 12 items in all. Each item belongs in
+                    one group. The game shuffles all the items together, and the
+                    player sorts them into the groups. Leave the third group
+                    blank to use just two.</span
+                  ></span
+                >
+              </p>
+              <div id="group-rows">
+                <div class="group-row">
+                  <input type="text" placeholder="Group 1 name" />
+                  <textarea rows="3" placeholder="Items"></textarea>
+                </div>
+                <div class="group-row">
+                  <input type="text" placeholder="Group 2 name" />
+                  <textarea rows="3" placeholder="Items"></textarea>
+                </div>
+                <div class="group-row">
+                  <input type="text" placeholder="Group 3 name (optional)" />
+                  <textarea rows="3" placeholder="Items"></textarea>
+                </div>
+              </div>
+            </div>
+
             <p id="form-message" role="status"></p>
             <div class="form-buttons">
               <button id="form-submit" type="submit">Add question</button>
@@ -350,6 +386,15 @@
                   <code>order</code> (ordering): list the items in the
                   <strong>correct order</strong>, one per column, 2 to 6 items.
                   The game shuffles them.
+                </li>
+                <li>
+                  <code>group</code> (groups): write each group's name as
+                  <code>group:Name</code>, followed by the items that belong in
+                  it, one per column (for example
+                  <code
+                    >group,Sort
+                    these,group:Planets,Mars,Venus,group:Stars,Sirius</code
+                  >). 2 or 3 groups, up to 12 items in all.
                 </li>
               </ul>
               <p>

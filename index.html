@@ -8,8 +8,8 @@
     />
     <title>Sphere Searcher</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <script type="module" crossorigin src="./assets/index-E5dI0ZQB.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-B2XHejk7.css">
+    <script type="module" crossorigin src="./assets/index-B0r-KQNW.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-0aW-wUZc.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -56,7 +56,9 @@
                 <option value="multiple-choice">Multiple choice</option>
                 <option value="true-false">True / false</option>
                 <option value="free-response">Free response</option>
+                <option value="slider">Slider</option>
                 <option value="matching">Matching</option>
+                <option value="ordering">Ordering</option>
               </select>
             </label>
             <label>
@@ -75,12 +77,13 @@
                   <code>__underline__</code>,
                   <code>E = mc^2^</code> (superscript),
                   <code>H~2~O</code> (subscript). This works in the question,
-                  multiple choice answers, and matching terms and definitions.
-                  Marks can be combined: <code>**bold _and italic_**</code>.
-                  Superscript and subscript cannot contain spaces, so
-                  <code>x^2 + y^2</code> stays as typed. Put a backslash before
-                  <code>*</code> <code>_</code> <code>^</code> or
-                  <code>~</code> to show it as plain text.</span
+                  multiple choice answers, matching terms and definitions, and
+                  ordering items. Marks can be combined:
+                  <code>**bold _and italic_**</code>. Superscript and subscript
+                  cannot contain spaces, so <code>x^2 + y^2</code> stays as
+                  typed. Put a backslash before <code>*</code> <code>_</code>
+                  <code>^</code> or <code>~</code> to show it as plain
+                  text.</span
                 ></span
               >
               <textarea id="form-prompt" rows="2"></textarea>
@@ -113,7 +116,7 @@
 
             <fieldset id="form-multiple-choice">
               <legend>
-                Answers (select the correct one)
+                Answers (select the correct one, or all that apply)
                 <span class="help"
                   ><button
                     type="button"
@@ -124,10 +127,15 @@
                     ?</button
                   ><span id="help-choices" class="help-text" role="tooltip"
                     >Leave an answer blank to ignore it. The game shuffles the
-                    order.</span
+                    order. With the box below ticked, the player must pick every
+                    correct answer and nothing else.</span
                   ></span
                 >
               </legend>
+              <label id="select-all-option">
+                <input type="checkbox" id="form-select-all" />
+                More than one answer can be correct
+              </label>
               <div id="mc-choices"></div>
               <button id="add-choice" type="button">Add another answer</button>
             </fieldset>
@@ -160,6 +168,20 @@
                 >
                 <textarea id="form-accepted" rows="3"></textarea>
               </label>
+              <label id="numeric-option">
+                <input type="checkbox" id="form-numeric" />
+                The answer is a number
+              </label>
+              <label id="tolerance-option" hidden>
+                Accept answers within
+                <input
+                  id="form-tolerance"
+                  type="text"
+                  inputmode="decimal"
+                  value="0"
+                />
+                of an accepted answer (0 means exactly)
+              </label>
             </div>
 
             <fieldset id="form-matching" hidden>
@@ -186,6 +208,88 @@
               <div id="pair-rows"></div>
               <button id="add-pair" type="button">Add another pair</button>
             </fieldset>
+
+            <fieldset id="form-slider" hidden>
+              <legend>
+                Slider
+                <span class="help"
+                  ><button
+                    type="button"
+                    class="help-button"
+                    aria-label="Help: slider"
+                    aria-describedby="help-slider"
+                  >
+                    ?</button
+                  ><span id="help-slider" class="help-text" role="tooltip"
+                    >The player moves a slider from the minimum to the maximum
+                    and must stop on the correct answer. For one correct number,
+                    fill in only "Correct answer from". For a range, fill in
+                    both boxes.</span
+                  ></span
+                >
+              </legend>
+              <div class="slider-ends-row">
+                <label>
+                  Minimum
+                  <input
+                    id="slider-min"
+                    type="text"
+                    inputmode="decimal"
+                    value="0"
+                  />
+                </label>
+                <div class="fake-slider" aria-hidden="true">
+                  <div class="fake-slider-thumb"></div>
+                </div>
+                <label>
+                  Maximum
+                  <input
+                    id="slider-max"
+                    type="text"
+                    inputmode="decimal"
+                    value="10"
+                  />
+                </label>
+              </div>
+              <div class="slider-step-row">
+                <label for="slider-step">Step</label>
+                <input
+                  id="slider-step"
+                  type="text"
+                  inputmode="decimal"
+                  value="1"
+                />
+              </div>
+              <div class="slider-answer-row">
+                <label for="slider-low">Correct answer from</label>
+                <input id="slider-low" type="text" inputmode="decimal" />
+                <label for="slider-high">to</label>
+                <input id="slider-high" type="text" inputmode="decimal" />
+                <span class="slider-note"
+                  >(leave "to" blank for one number)</span
+                >
+              </div>
+            </fieldset>
+
+            <div id="form-ordering" hidden>
+              <label>
+                Items in the correct order (one per line)
+                <span class="help"
+                  ><button
+                    type="button"
+                    class="help-button"
+                    aria-label="Help: ordering items"
+                    aria-describedby="help-items"
+                  >
+                    ?</button
+                  ><span id="help-items" class="help-text" role="tooltip"
+                    >2 to 6 items, first to last. The game shuffles them, and
+                    the player puts them back in order.</span
+                  ></span
+                >
+                <textarea id="form-items" rows="4"></textarea>
+              </label>
+            </div>
 
             <p id="form-message" role="status"></p>
             <div class="form-buttons">
@@ -215,18 +319,37 @@
                   at least one. The game shuffles them.
                 </li>
                 <li>
+                  <code>msa</code> (select all that apply): write
+                  <code>correct:</code> before every correct answer, for example
+                  <code>correct:Mars</code>, and nothing before the wrong ones.
+                  The game shuffles them.
+                </li>
+                <li>
+                  <code>slider</code>: write the minimum, maximum and step, then
+                  the correct number, or the low and high ends of the correct
+                  range, one per column (for example
+                  <code>slider,Question,0,10,1,3,5</code>).
+                </li>
+                <li>
                   <code>tf</code> (true / false): one answer, either
                   <code>true</code> or <code>false</code>.
                 </li>
                 <li>
                   <code>fr</code> (free response): list every answer you want to
-                  accept, one per column. Case and extra spaces are ignored.
+                  accept, one per column. Case and extra spaces are ignored. To
+                  accept a number within a tolerance, list the numbers and add
+                  one more column such as <code>tolerance:0.1</code>.
                 </li>
                 <li>
                   <code>match</code> (matching): write each pair as
                   <code>term=definition</code>, one per column, 2 to 6 pairs. To
                   put an <code>=</code> sign inside a term or definition, write
                   <code>\=</code> instead.
+                </li>
+                <li>
+                  <code>order</code> (ordering): list the items in the
+                  <strong>correct order</strong>, one per column, 2 to 6 items.
+                  The game shuffles them.
                 </li>
               </ul>
               <p>

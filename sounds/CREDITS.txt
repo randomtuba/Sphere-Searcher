@@ -12,10 +12,10 @@ wrong.ogg        error_004.ogg          Interface Sounds
 load-success.ogg confirmation_003.ogg   Interface Sounds
 load-error.ogg   error_008.ogg          Interface Sounds
 door.ogg         doorOpen_1.ogg         RPG Audio ("50 RPG sound effects")
-rush.mp3         powerUp7.mp3           Digital Audio ("63 digital sound effects")
-win.mp3          threeTone1.mp3         Digital Audio ("63 digital sound effects")
+rush.ogg         jingles_HIT01.ogg      Music Jingles (Hit jingles)
+win.ogg          jingles_STEEL02.ogg    Music Jingles (Steel jingles)
 
 Sources:
 https://opengameart.org/content/interface-sounds
 https://opengameart.org/content/50-rpg-sound-effects
-https://opengameart.org/content/63-digital-sound-effects-lasers-phasers-space-etc
+https://kenney.nl/assets/music-jingles

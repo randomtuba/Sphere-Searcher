@@ -8,8 +8,8 @@
     />
     <title>Sphere Searcher</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <script type="module" crossorigin src="./assets/index-ChkByD2f.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Dls_ez2X.css">
+    <script type="module" crossorigin src="./assets/index-ts3nJxbJ.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CmYrEZJP.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -28,6 +28,17 @@
 
           <div class="list-header">
             <h2>Your questions (<span id="question-count"></span>)</h2>
+            <button
+              id="list-more"
+              type="button"
+              aria-expanded="false"
+              aria-controls="list-more-panel"
+              hidden
+            >
+              More ▾
+            </button>
+          </div>
+          <div id="list-more-panel" class="list-more-panel" hidden>
             <div class="list-header-buttons">
               <button id="share-link" type="button" disabled>
                 Copy as link
@@ -36,17 +47,17 @@
                 Export to CSV
               </button>
             </div>
+            <div id="list-actions" class="list-actions" hidden>
+              <button id="remove-all" type="button" class="danger-button">
+                Remove all questions
+              </button>
+              <button id="erase-memory" type="button" class="danger-button">
+                Erase memory for this list
+              </button>
+            </div>
           </div>
           <p id="question-empty">No questions yet. Add one below.</p>
           <ol id="question-list"></ol>
-          <div id="list-actions" class="list-actions" hidden>
-            <button id="remove-all" type="button" class="danger-button">
-              Remove all questions
-            </button>
-            <button id="erase-memory" type="button" class="danger-button">
-              Erase memory for this list
-            </button>
-          </div>
 
           <form id="question-form">
             <h2 id="form-heading">Add a question</h2>
@@ -60,6 +71,7 @@
                 <option value="matching">Matching</option>
                 <option value="ordering">Ordering</option>
                 <option value="grouping">Groups</option>
+                <option value="label-picture">Label a picture</option>
               </select>
             </label>
             <label>
@@ -230,7 +242,7 @@
 
             <fieldset id="form-matching" hidden>
               <legend>
-                Pairs (each term goes with the definition beside it)
+                Pairs (each row is one term and its definition)
                 <span class="help"
                   ><button
                     type="button"
@@ -247,7 +259,9 @@
               </legend>
               <div class="pair-row pair-header">
                 <span>Term</span>
+                <span></span>
                 <span>Definition</span>
+                <span></span>
               </div>
               <div id="pair-rows"></div>
               <button id="add-pair" type="button">Add another pair</button>
@@ -297,6 +311,20 @@
               </div>
               <div class="slider-step-row">
                 <label for="slider-step">Step</label>
+                <span class="help"
+                  ><button
+                    type="button"
+                    class="help-button"
+                    aria-label="Help: slider step"
+                    aria-describedby="help-step"
+                  >
+                    ?</button
+                  ><span id="help-step" class="help-text" role="tooltip"
+                    >How much the number goes up or down with every nudge of the
+                    slider. A step of 1 stops on whole numbers, 0.5 on halves,
+                    and 10 on tens.</span
+                  ></span
+                >
                 <input
                   id="slider-step"
                   type="text"
@@ -374,9 +402,36 @@
               </div>
             </fieldset>
 
+            <fieldset id="form-label-picture" hidden>
+              <legend>
+                Spots on the picture
+                <span class="help"
+                  ><button
+                    type="button"
+                    class="help-button"
+                    aria-label="Help: spots on the picture"
+                    aria-describedby="help-spots"
+                  >
+                    ?</button
+                  ><span id="help-spots" class="help-text" role="tooltip"
+                    >2 to 8 spots. Click the picture to place a spot, then name
+                    it. In the maze the player sees the numbered spots and drags
+                    each name to its number. Wrongly named spots come back for a
+                    second try.</span
+                  ></span
+                >
+              </legend>
+              <p id="spot-note"></p>
+              <div id="spot-frame" class="spot-frame" hidden>
+                <img id="spot-image" alt="Click to place a spot" />
+              </div>
+              <div id="spot-rows"></div>
+            </fieldset>
+
             <p id="form-message" role="status"></p>
             <div class="form-buttons">
               <button id="form-submit" type="submit">Add question</button>
+              <button id="form-preview" type="button">Preview</button>
               <button id="cancel-edit" type="button" hidden>Cancel</button>
             </div>
           </form>
@@ -515,10 +570,8 @@
     <div id="rush-border" hidden></div>
     <div id="interact-prompt" hidden><kbd>E</kbd> Answer question</div>
     <div id="hud" hidden>
-      <p id="hud-score">Score: 0</p>
-      <p id="hud-streak">Streak: 0</p>
-      <p id="hud-questions">Questions: 0/0</p>
-      <p id="hud-doors">Doors open: 0/3</p>
+      <p id="hud-time">Time: 0:00.00</p>
+      <p id="hud-score">Score: 0 · Streak: 0</p>
       <p id="hud-next-door"></p>
     </div>
     <div id="minimap" hidden>

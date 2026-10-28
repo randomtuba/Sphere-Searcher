@@ -8,8 +8,8 @@
     />
     <title>Sphere Searcher</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <script type="module" crossorigin src="./assets/index-ts3nJxbJ.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CmYrEZJP.css">
+    <script type="module" crossorigin src="./assets/index-DEVo6KgX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D6iOJbiK.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -20,44 +20,16 @@
             Turn your own practice questions into a maze: find the spheres,
             answer them, escape.
           </p>
-          <div id="tutorial-top">
-            <button id="play-tutorial" type="button" class="tutorial-button">
-              Play tutorial
-            </button>
-          </div>
-
-          <div class="list-header">
-            <h2>Your questions (<span id="question-count"></span>)</h2>
-            <button
-              id="list-more"
-              type="button"
-              aria-expanded="false"
-              aria-controls="list-more-panel"
-              hidden
-            >
-              More ▾
-            </button>
-          </div>
-          <div id="list-more-panel" class="list-more-panel" hidden>
-            <div class="list-header-buttons">
-              <button id="share-link" type="button" disabled>
-                Copy as link
-              </button>
-              <button id="export-csv" type="button" disabled>
-                Export to CSV
+          <div id="game-buttons">
+            <div id="tutorial-top">
+              <button id="play-tutorial" type="button" class="tutorial-button">
+                Play tutorial
               </button>
             </div>
-            <div id="list-actions" class="list-actions" hidden>
-              <button id="remove-all" type="button" class="danger-button">
-                Remove all questions
-              </button>
-              <button id="erase-memory" type="button" class="danger-button">
-                Erase memory for this list
-              </button>
-            </div>
+            <button id="start-game" type="button" disabled>Start game</button>
+            <p id="start-message" class="error" role="alert" hidden></p>
+            <div id="tutorial-bottom"></div>
           </div>
-          <p id="question-empty">No questions yet. Add one below.</p>
-          <ol id="question-list"></ol>
 
           <form id="question-form">
             <h2 id="form-heading">Add a question</h2>
@@ -436,6 +408,39 @@
             </div>
           </form>
 
+          <div class="list-header">
+            <h2>Your questions (<span id="question-count"></span>)</h2>
+            <button
+              id="list-more"
+              type="button"
+              aria-expanded="false"
+              aria-controls="list-more-panel"
+              hidden
+            >
+              More ▾
+            </button>
+          </div>
+          <div id="list-more-panel" class="list-more-panel" hidden>
+            <div class="list-header-buttons">
+              <button id="share-link" type="button" disabled>
+                Copy as link
+              </button>
+              <button id="export-csv" type="button" disabled>
+                Export to CSV
+              </button>
+            </div>
+            <div id="list-actions" class="list-actions" hidden>
+              <button id="remove-all" type="button" class="danger-button">
+                Remove all questions
+              </button>
+              <button id="erase-memory" type="button" class="danger-button">
+                Erase memory for this list
+              </button>
+            </div>
+          </div>
+          <p id="question-empty">No questions yet. Add one above.</p>
+          <ol id="question-list"></ol>
+
           <details id="csv-import" class="options">
             <summary>Import from a CSV or TXT file</summary>
             <p>
@@ -534,11 +539,6 @@
             </label>
             <div id="csv-status" role="status"></div>
           </details>
-
-          <p id="start-message" class="error" role="alert" hidden></p>
-
-          <button id="start-game" type="button" disabled>Start game</button>
-          <div id="tutorial-bottom"></div>
         </section>
         <p class="credit">
           Made with Claude. Sound effects by

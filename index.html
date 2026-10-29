@@ -8,8 +8,8 @@
     />
     <title>Sphere Searcher</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <script type="module" crossorigin src="./assets/index-DEVo6KgX.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-D6iOJbiK.css">
+    <script type="module" crossorigin src="./assets/index-BOITAGNj.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BoeVcFW9.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -27,6 +27,7 @@
               </button>
             </div>
             <button id="start-game" type="button" disabled>Start game</button>
+            <div id="topic-chips" class="topic-chips" hidden></div>
             <p id="start-message" class="error" role="alert" hidden></p>
             <div id="tutorial-bottom"></div>
           </div>
@@ -73,53 +74,102 @@
               >
               <textarea id="form-prompt" rows="2"></textarea>
             </label>
-            <details id="image-options" class="options">
-              <summary>Add a picture (optional)</summary>
-              <label>
-                Image link
-                <span class="help"
-                  ><button
-                    type="button"
-                    class="help-button"
-                    aria-label="Help: image link"
-                    aria-describedby="help-image"
+            <div class="optional-extras">
+              <details id="image-options" class="options">
+                <summary>Add a picture (optional)</summary>
+                <label>
+                  Image link
+                  <span class="help"
+                    ><button
+                      type="button"
+                      class="help-button"
+                      aria-label="Help: image link"
+                      aria-describedby="help-image"
+                    >
+                      ?</button
+                    ><span id="help-image" class="help-text" role="tooltip"
+                      >The picture shows above the question in the maze. The
+                      link must start with <code>https://</code> and point
+                      straight at an image.</span
+                    ></span
                   >
-                    ?</button
-                  ><span id="help-image" class="help-text" role="tooltip"
-                    >The picture shows above the question in the maze. The link
-                    must start with <code>https://</code> and point straight at
-                    an image.</span
-                  ></span
-                >
-                <input
-                  id="form-image"
-                  type="url"
-                  placeholder="https://example.com/picture.png"
-                />
-              </label>
-            </details>
+                  <input
+                    id="form-image"
+                    type="url"
+                    placeholder="https://example.com/picture.png"
+                  />
+                </label>
+              </details>
 
-            <details id="why-options" class="options">
-              <summary>Add an explanation (optional)</summary>
-              <label>
-                Why is this the answer?
-                <span class="help"
-                  ><button
-                    type="button"
-                    class="help-button"
-                    aria-label="Help: explanation"
-                    aria-describedby="help-why"
+              <details id="why-options" class="options">
+                <summary>Add an explanation (optional)</summary>
+                <label>
+                  Why is this the answer?
+                  <span class="help"
+                    ><button
+                      type="button"
+                      class="help-button"
+                      aria-label="Help: explanation"
+                      aria-describedby="help-why"
+                    >
+                      ?</button
+                    ><span id="help-why" class="help-text" role="tooltip"
+                      >Shown under "Correct!" or "Not quite." after the player
+                      answers, so a wrong answer teaches something. Text
+                      formatting works here too.</span
+                    ></span
                   >
-                    ?</button
-                  ><span id="help-why" class="help-text" role="tooltip"
-                    >Shown under "Correct!" or "Not quite." after the player
-                    answers, so a wrong answer teaches something. Text
-                    formatting works here too.</span
-                  ></span
-                >
-                <textarea id="form-why" rows="2"></textarea>
-              </label>
-            </details>
+                  <textarea id="form-why" rows="2"></textarea>
+                </label>
+              </details>
+              <details id="hint-options" class="options">
+                <summary>Add a hint (optional)</summary>
+                <label>
+                  Hint
+                  <span class="help"
+                    ><button
+                      type="button"
+                      class="help-button"
+                      aria-label="Help: hint"
+                      aria-describedby="help-hint"
+                    >
+                      ?</button
+                    ><span id="help-hint" class="help-text" role="tooltip"
+                      >The player can press a Hint button before answering. A
+                      right answer after a hint earns half the points. Do not
+                      give the answer away.</span
+                    ></span
+                  >
+                  <input id="form-hint" type="text" />
+                </label>
+              </details>
+              <details id="tags-options" class="options">
+                <summary>Add topics (optional)</summary>
+                <label>
+                  Topics, separated by commas
+                  <span class="help"
+                    ><button
+                      type="button"
+                      class="help-button"
+                      aria-label="Help: topics"
+                      aria-describedby="help-tags"
+                    >
+                      ?</button
+                    ><span id="help-tags" class="help-text" role="tooltip"
+                      >Label a question with one or more topics, like
+                      <code>stars, galaxies</code>. Before a game you can switch
+                      topics on and off. Questions with no topic are always
+                      played.</span
+                    ></span
+                  >
+                  <input
+                    id="form-tags"
+                    type="text"
+                    placeholder="astronomy, stars"
+                  />
+                </label>
+              </details>
+            </div>
 
             <fieldset id="form-multiple-choice">
               <legend>
@@ -400,11 +450,13 @@
               <div id="spot-rows"></div>
             </fieldset>
 
-            <p id="form-message" role="status"></p>
-            <div class="form-buttons">
-              <button id="form-submit" type="submit">Add question</button>
-              <button id="form-preview" type="button">Preview</button>
-              <button id="cancel-edit" type="button" hidden>Cancel</button>
+            <div class="form-actions">
+              <p id="form-message" role="status"></p>
+              <div class="form-buttons">
+                <button id="form-submit" type="submit">Add question</button>
+                <button id="form-preview" type="button">Preview</button>
+                <button id="cancel-edit" type="button" hidden>Cancel</button>
+              </div>
             </div>
           </form>
 
@@ -438,6 +490,10 @@
               </button>
             </div>
           </div>
+          <p id="saved-note" class="saved-note">
+            Saved in this browser. To keep a backup or move them, use More above
+            to export a CSV or copy a link.
+          </p>
           <p id="question-empty">No questions yet. Add one above.</p>
           <ol id="question-list"></ol>
 

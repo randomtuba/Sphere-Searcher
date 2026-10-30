@@ -8,8 +8,8 @@
     />
     <title>Sphere Searcher</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <script type="module" crossorigin src="./assets/index-BOITAGNj.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BoeVcFW9.css">
+    <script type="module" crossorigin src="./assets/index-B7usN-Cs.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CItYw-e9.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -21,6 +21,8 @@
             answer them, escape.
           </p>
           <div id="game-buttons">
+            <div id="mode-picker" role="group" aria-label="Game mode"></div>
+            <p id="mode-note" class="mode-note"></p>
             <div id="tutorial-top">
               <button id="play-tutorial" type="button" class="tutorial-button">
                 Play tutorial
@@ -608,6 +610,10 @@
       <p class="status">Click to play</p>
       <!-- The list of controls is filled in by settingsPanel.ts. -->
       <ul class="controls"></ul>
+      <p id="attack-controls" hidden>
+        <strong>Click</strong> or <strong>Space</strong>: shoot<br />
+        <strong>1</strong> <strong>2</strong> <strong>3</strong>: switch weapon
+      </p>
       <ul class="touch-help">
         <li>Left thumb: slide to walk</li>
         <li>Right side: drag to look</li>
@@ -624,6 +630,12 @@
       Settings
     </button>
     <div id="rush-border" hidden></div>
+    <div id="crosshair" hidden></div>
+    <div id="reload-wheel" hidden></div>
+    <div id="attack-hud" hidden>
+      <p id="attack-weapon"></p>
+      <p id="attack-targets"></p>
+    </div>
     <div id="interact-prompt" hidden><kbd>E</kbd> Answer question</div>
     <div id="hud" hidden>
       <p id="hud-time">Time: 0:00.00</p>

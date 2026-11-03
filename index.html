@@ -8,8 +8,8 @@
     />
     <title>Sphere Searcher</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <script type="module" crossorigin src="./assets/index-D9r2h7M5.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Ca8vMAAf.css">
+    <script type="module" crossorigin src="./assets/index-Cspkk9Fh.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Bb9QoIcK.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -634,6 +634,7 @@
     <div id="reload-wheel" hidden></div>
     <div id="attack-hud" hidden>
       <p id="attack-score">Score: 0</p>
+      <p id="attack-level" hidden>Level 1</p>
       <p id="attack-keys" hidden></p>
       <p id="attack-weapon"></p>
       <p id="attack-targets"></p>
@@ -646,6 +647,7 @@
     <div id="death-screen" hidden>
       <h1>Game over!</h1>
       <p id="death-enemies"></p>
+      <p id="death-level"></p>
       <button id="death-restart" type="button">Try again</button>
     </div>
     <div id="interact-prompt" hidden><kbd>E</kbd> Answer question</div>
@@ -659,6 +661,7 @@
       <p id="minimap-label">M: show question spheres (off)</p>
     </div>
     <div id="door-message" hidden></div>
+    <div id="level-banner" hidden></div>
     <div id="tutorial-message" hidden></div>
     <div id="win-screen" hidden>
       <h1>You escaped!</h1>

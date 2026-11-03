@@ -8,8 +8,8 @@
     />
     <title>Sphere Searcher</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <script type="module" crossorigin src="./assets/index-B7usN-Cs.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CItYw-e9.css">
+    <script type="module" crossorigin src="./assets/index-D9r2h7M5.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Ca8vMAAf.css">
   </head>
   <body>
     <div id="setup-screen">
@@ -633,8 +633,20 @@
     <div id="crosshair" hidden></div>
     <div id="reload-wheel" hidden></div>
     <div id="attack-hud" hidden>
+      <p id="attack-score">Score: 0</p>
+      <p id="attack-keys" hidden></p>
       <p id="attack-weapon"></p>
       <p id="attack-targets"></p>
+    </div>
+    <div id="player-health" hidden>
+      <div id="player-health-fill"></div>
+      <span id="player-health-text"></span>
+    </div>
+    <div id="hurt-flash" hidden></div>
+    <div id="death-screen" hidden>
+      <h1>Game over!</h1>
+      <p id="death-enemies"></p>
+      <button id="death-restart" type="button">Try again</button>
     </div>
     <div id="interact-prompt" hidden><kbd>E</kbd> Answer question</div>
     <div id="hud" hidden>
